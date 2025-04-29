@@ -43,7 +43,7 @@ int permut(char *a, char *b)
 
 	if(n == 1)
 	{
-		printf("%s%s\n", b, a);
+//		printf("%s%s\n", b, a);
 		return(0);
 	}
 

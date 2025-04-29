@@ -12,21 +12,6 @@ int ft_strlen(char *a)
 	return(i);
 }
 
-char *ft_calloc(int n)
-{
-	char *a;
-	int i;
-
-	a = malloc(sizeof(char) * (n + 1));
-	i = 0;
-	while(i <= (n + 1))
-	{
-		a[i] = '\0';
-		i++;
-	}
-	return(a);
-}
-
 int tri(char *a)
 {
 	int i = 0;
@@ -50,11 +35,10 @@ int tri(char *a)
 int permut(char *t, char *f)
 {
 	char c;
-	char *fix = ft_calloc(ft_strlen(f) + 1);
-	char *tab = ft_calloc(ft_strlen(t) - 1);
+	char fix[ft_strlen(f) + 1];
+	char tab[ft_strlen(t) - 1];
 	int i = 0;
 	int j = 0;
-	int k = 0;
 	int l = ft_strlen(t);
 
 	if(l == 1)
@@ -62,43 +46,29 @@ int permut(char *t, char *f)
 		printf("%s%s\n", f, t);
 		return(0);
 	}
-
 	while(i < l)
 	{
-		//fixe le debut
-
 		j = 0;
-		while(f[j])
+		while(j < ft_strlen(f))
 		{
 			fix[j] = f[j];
 			j++;
 		}
 		fix[j] = t[0];
-
-
-		//ecrit le rest
+		fix[j + 1] = '\0';
 		j = 0;
-		while(t[j + 1])
+		while(j + 1 < ft_strlen(t))
 		{
 			tab[j] = t[j + 1];
 			j++;
 		}
 		tab[j] = '\0';
-
-	//	printf("tab = %s et fix = %s\n", tab, fix);
 		permut(tab, fix);
-
 		i++;
-
 		c = t[0];
 		t[0] = t[i];
 		t[i] = c;
-//		printf("t = %s et f = %s\n\n", tab, fix);
-
-
 	}
-	free(fix);
-	free(tab);
 	return(0);
 }
 
@@ -110,25 +80,17 @@ int main(int argc, char **argv)
 		return(0);
 	}
 
-	int n = ft_strlen(argv[1]);
-	char *a = ft_calloc(n);
-	char *b = ft_calloc(0);
-
+	char a[ft_strlen(argv[1]) + 1 ];
+	char b[1];
+	b[0] = '\0';
 	int i = 0;
 	while (argv[1][i])
 	{
 		a[i] = argv[1][i];
 		i++;
 	}
-
+	a[i] = '\0';
 	tri(a);
-
-//	printf("a = %s et b = %s\n", a, b);
-
 	permut(a, b);
-
-	free(a);
-	free(b);
-
 	return(0);
 }
